@@ -2,24 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tile : MonoBehaviour
+public  class Tile : MonoBehaviour
 {
-    [SerializeField] private Color baseColor, offsetColor;
+    [SerializeField] private Color color;
     [SerializeField] private SpriteRenderer renderer;
     [SerializeField] private GameObject highlight;
 
-    public void Init(bool isOffset)
+    //TODO 
+    /// <summary>
+    /// 地图差分颜色
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    public void Init(int x,int y)
     {
-        if (isOffset)
-        {
-            renderer.color = offsetColor;
-        }
-        else
-        {
-            renderer.color = baseColor;
-        }
+            renderer.color = color;
     }
 
+
+    #region 鼠标高亮显示
     private void OnMouseEnter()
     {
         highlight.SetActive(true);
@@ -28,4 +29,5 @@ public class Tile : MonoBehaviour
     { 
         highlight.SetActive(false);
     }
+    #endregion
 }

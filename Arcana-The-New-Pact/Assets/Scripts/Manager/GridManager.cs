@@ -4,17 +4,25 @@ using UnityEngine;
 
 public class GridManager : MonoBehaviour
 {
+    //unity中声明网格长宽边个数
     [SerializeField]private int width, height;
+    //声明网格类型
     [SerializeField]private Tile wallTile,floorTile;
+    //相机
     [SerializeField]private Transform camera;
 
+    //管理网格的字典
     private Dictionary<Vector2, Tile> tiles;
+
 
     private void Start()
     {
         GenerateGrid();
     }
 
+    /// <summary>
+    /// 网格生成
+    /// </summary>
     void GenerateGrid()
     {
         tiles = new Dictionary<Vector2, Tile>();
@@ -22,9 +30,12 @@ public class GridManager : MonoBehaviour
         {
             for (int y = 0; y < height; y++)
             {
+                //TODO 
+                #region 地图生成逻辑
                 var randomNumber = Random.Range(0, 10);
                 var randomTile = new Tile();
-                if (randomNumber > 8)
+                var isWall = randomNumber > 8 || x == 0 || x == width - 1 || y == 0 || y == height - 1;
+                if (isWall)
                 {
                     randomTile = wallTile;
                 }
@@ -32,11 +43,12 @@ public class GridManager : MonoBehaviour
                 {
                     randomTile = floorTile;
                 }
+                #endregion
                 var spawnedTile = Instantiate(randomTile, new Vector3(x, y), Quaternion.identity);
                 spawnedTile.name = $"Tile {x} {y}";
 
-                var isOffset = (x % 2 == 0 && y % 2 != 0) || (x % 2 != 0 && y % 2 == 0);
-                spawnedTile.Init(isOffset);
+                
+                spawnedTile.Init(x,y);
 
                 tiles[new Vector2(x, y)] = spawnedTile;
             }
@@ -47,7 +59,11 @@ public class GridManager : MonoBehaviour
     }
 
 
-
+    /// <summary>
+    /// 返回鼠标所指网格
+    /// </summary>
+    /// <param name="pos"></param>
+    /// <returns></returns>
     public Tile GetTile(Vector2 pos)
     {
         if (tiles.TryGetValue(pos, out var tile))
@@ -58,4 +74,13 @@ public class GridManager : MonoBehaviour
         return null;
     }
 
+    //屎山来喽
+    public int getWidth()
+    {
+        return width;
+    }
+    public int getHeight()
+    {
+        return height;
+    }
 }
