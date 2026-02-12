@@ -153,7 +153,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   width: 16
   height: 9
-  tilePrefab: {fileID: 527534147149716529, guid: 4d5970c971b39c141b39ddb716cf0598, type: 3}
+  wallTile: {fileID: 6924778970439376571, guid: 6eb88312067c17d4b8c6e1f2f2ada7c3, type: 3}
+  floorTile: {fileID: 6118199600301120575, guid: 563529ddfab56ff4aacff0ca07eebbb8, type: 3}
   camera: {fileID: 519420032}
 --- !u!4 &198232978
 Transform:
