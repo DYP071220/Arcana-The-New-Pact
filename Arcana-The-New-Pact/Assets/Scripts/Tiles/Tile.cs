@@ -5,18 +5,16 @@ using UnityEngine;
 public  class Tile : MonoBehaviour
 {
     [SerializeField] private Color color;
-    [SerializeField] private SpriteRenderer renderer;
+    [SerializeField] private new SpriteRenderer renderer;
     [SerializeField] private GameObject highlight;
 
     //TODO 
     /// <summary>
     /// µØÍ¼²î·ÖÑÕÉ«
     /// </summary>
-    /// <param name="x"></param>
-    /// <param name="y"></param>
-    public void Init(int x,int y)
+    public void Init()
     {
-            renderer.color = color;
+        renderer.color = color;
     }
 
 

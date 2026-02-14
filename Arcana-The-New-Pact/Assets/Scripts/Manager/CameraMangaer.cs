@@ -31,8 +31,8 @@ public class CameraController2D : MonoBehaviour
     private void Awake()
     {
         gridManager = FindObjectOfType<GridManager>();
-        var width = gridManager.getWidth();
-        var height = gridManager.getHeight();
+        var width = gridManager.GetWidth();
+        var height = gridManager.GetHeight();
         xBounds = new Vector2(0, width);
         yBounds = new Vector2(0, height);
     }
@@ -42,8 +42,8 @@ public class CameraController2D : MonoBehaviour
             targetCamera = Camera.main;
         
         gridManager = FindObjectOfType<GridManager>();
-        var width = gridManager.getWidth();
-        var height = gridManager.getHeight();
+        var width = gridManager.GetWidth();
+        var height = gridManager.GetHeight();
 
         // 确保相机是正交模式
         targetCamera.orthographic = true;

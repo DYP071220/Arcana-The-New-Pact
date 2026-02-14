@@ -9,7 +9,7 @@ public class GridManager : MonoBehaviour
     //声明网格类型
     [SerializeField]private Tile wallTile,floorTile;
     //相机
-    [SerializeField]private Transform camera;
+    [SerializeField] private Transform camera;
 
     //管理网格的字典
     private Dictionary<Vector2, Tile> tiles;
@@ -48,7 +48,7 @@ public class GridManager : MonoBehaviour
                 spawnedTile.name = $"Tile {x} {y}";
 
                 
-                spawnedTile.Init(x,y);
+                spawnedTile.Init();
 
                 tiles[new Vector2(x, y)] = spawnedTile;
             }
@@ -75,11 +75,11 @@ public class GridManager : MonoBehaviour
     }
 
     //屎山来喽
-    public int getWidth()
+    public int GetWidth()
     {
         return width;
     }
-    public int getHeight()
+    public int GetHeight()
     {
         return height;
     }

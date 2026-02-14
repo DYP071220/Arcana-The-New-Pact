@@ -1,0 +1,16 @@
+using DG.Tweening;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class CardViewCreator : MonoBehaviour
+{
+    [SerializeField] private CardView cardViewPrefab;
+    public CardView CreateCardView(Vector3 position,Quaternion rotation)
+    {
+        CardView cardView = Instantiate(cardViewPrefab, position, rotation);
+        cardView.transform.localScale = Vector3.zero;
+        cardView.transform.DOScale(Vector3.one, 0.15f);
+        return cardView;
+    }
+}
