@@ -4,30 +4,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
 
-public abstract class GameManager<T> : MonoBehaviour where T:MonoBehaviour
+public class GameManager : MonoBehaviour
 {
-    public static T Instance {  get; private set; }
+    public static GameManager Instance;
     public GameState GameState;
+    public GameObject StartGameButton;
+    public GameObject QuitGameButton;
+    public GridManager gridManager;
+    public CardManager cardManager;
 
-    protected virtual void Awake()
+    private void Awake()
     {
-        //这句也是抄的
         if (Instance != null && Instance != this)
         {
-            Destroy(gameObject); // 销毁重复的实例
+            Destroy(gameObject); 
             return;
         }
 
-        Instance = this as T;
+        Instance = this;
     }
     void Start()
     {
-        ChangeState(GameState.MapGeneration);
-    }
-
-    void Update()
-    {
-
+        ChangeState(GameState.GameMainInterface);
     }
 
     public void ChangeState(GameState newState)
@@ -38,12 +36,10 @@ public abstract class GameManager<T> : MonoBehaviour where T:MonoBehaviour
             case GameState.GameMainInterface://游戏主界面（未开始）
                 break;
             case GameState.MapGeneration://地图生成
+                gridManager.GenerateGrid();
+                cardManager.AddCardTo(5);
                 break;
-            case GameState.EnemySpawning://敌人生成
-                break;
-            case GameState.UnitPlacement://单位放置
-                break;
-            case GameState.UnitCommanding://单位指挥
+            case GameState.PullCards://抽卡
                 break;
             case GameState.UnitActions://单位行动
                 break;
@@ -53,24 +49,20 @@ public abstract class GameManager<T> : MonoBehaviour where T:MonoBehaviour
                 throw new ArgumentOutOfRangeException(nameof(GameState),newState,null);//这句不会，我抄的
         }
     }
-}
 
-public abstract class PersistentSingLeton<T>:GameManager<T> where T : MonoBehaviour
-{
-    protected override void Awake()
+    public void StartGame()
     {
-        base.Awake();
-        DontDestroyOnLoad(gameObject);
+        StartGameButton.SetActive(false);
+        QuitGameButton.SetActive(false);
+        ChangeState(GameState.MapGeneration);
+
     }
 }
-
 public enum GameState
 {
     GameMainInterface,//游戏主界面（未开始）
     MapGeneration,//地图生成
-    EnemySpawning,//敌人生成
-    UnitPlacement,//单位放置
-    UnitCommanding,//单位指挥
+    PullCards,//抽卡
     UnitActions,//单位行动
     VictorySettlement,//胜利结算
 }

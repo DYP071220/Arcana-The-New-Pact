@@ -9,21 +9,15 @@ public class GridManager : MonoBehaviour
     //声明网格类型
     [SerializeField]private Tile wallTile,floorTile;
     //相机
-    [SerializeField]private Camera camera;
+    [SerializeField]private Transform Camera;
 
     //管理网格的字典
     private Dictionary<Vector2, Tile> tiles;
 
-
-    private void Start()
-    {
-        GenerateGrid();
-    }
-
     /// <summary>
     /// 网格生成
     /// </summary>
-    void GenerateGrid()
+    public void GenerateGrid()
     {
         tiles = new Dictionary<Vector2, Tile>();
         for (int x = 0; x < width; x++)
@@ -33,30 +27,20 @@ public class GridManager : MonoBehaviour
                 //TODO 
                 #region 地图生成逻辑
                 var randomNumber = Random.Range(0, 10);
-                var randomTile = new Tile();
                 var isWall = randomNumber > 8 || x == 0 || x == width - 1 || y == 0 || y == height - 1;
-                if (isWall)
-                {
-                    randomTile = wallTile;
-                }
-                else
-                {
-                    randomTile = floorTile;
-                }
+                var randomTile = isWall ? wallTile : floorTile;
                 #endregion
-                var spawnedTile = Instantiate(randomTile, new Vector3(x, y), Quaternion.identity);
-                spawnedTile.transform.SetParent(transform);
-
+                var spawnedTile = Instantiate(randomTile, new Vector3(x, y), Quaternion.identity,transform);
                 spawnedTile.name = $"Tile {x} {y}";
 
                 
-                spawnedTile.Init();
+                spawnedTile.Init(x,y);
 
                 tiles[new Vector2(x, y)] = spawnedTile;
             }
         }
 
-        camera.transform.position = new Vector3((float)width / 2 - 0.5f, (float)height / 2 - 0.5f, -10);
+        Camera.position = new Vector3((float)width / 2 - 0.5f, (float)height / 2 - 0.5f, -10);
 
     }
 
@@ -77,11 +61,11 @@ public class GridManager : MonoBehaviour
     }
 
     //屎山来喽
-    public int GetWidth()
+    public int getWidth()
     {
         return width;
     }
-    public int GetHeight()
+    public int getHeight()
     {
         return height;
     }
