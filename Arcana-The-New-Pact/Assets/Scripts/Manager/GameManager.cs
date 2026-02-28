@@ -2,25 +2,22 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.XR;
 
 public class GameManager : MonoBehaviour
 {
-
     public static GameManager Instance;
     public GameState GameState;
+    public GridManager gridManager;
+    public CardManager cardManager;
+    public GameObject QuitPanel;
 
-
-    /*Awake()在脚本实例被加载时调用
-     * 比 Start() 执行更早
-     * 即使脚本组件未启用也会执行
-     * 用来写单例  */
     private void Awake()
     {
-        //这句也是抄的
         if (Instance != null && Instance != this)
         {
-            Destroy(gameObject); // 销毁重复的实例
+            Destroy(gameObject); 
             return;
         }
 
@@ -31,11 +28,6 @@ public class GameManager : MonoBehaviour
         ChangeState(GameState.MapGeneration);
     }
 
-    void Update()
-    {
-
-    }
-
     public void ChangeState(GameState newState)
     {
         GameState = newState;
@@ -44,12 +36,10 @@ public class GameManager : MonoBehaviour
             case GameState.GameMainInterface://游戏主界面（未开始）
                 break;
             case GameState.MapGeneration://地图生成
+                gridManager.GenerateGrid();
+                cardManager.AddCardTo(5);
                 break;
-            case GameState.EnemySpawning://敌人生成
-                break;
-            case GameState.UnitPlacement://单位放置
-                break;
-            case GameState.UnitCommanding://单位指挥
+            case GameState.PullCards://抽卡
                 break;
             case GameState.UnitActions://单位行动
                 break;
@@ -59,14 +49,32 @@ public class GameManager : MonoBehaviour
                 throw new ArgumentOutOfRangeException(nameof(GameState),newState,null);//这句不会，我抄的
         }
     }
+
+    public void OpenSettings()
+    {
+        QuitPanel.SetActive(true);
+    }
+    public void CancelSettings()
+    {
+        QuitPanel.SetActive(false);
+    }
+    public void QuitGame()
+    {
+        Debug.Log("退出游戏");
+
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else 
+            Application.Quit();
+#endif
+        Debug.Log("");
+    }
 }
 public enum GameState
 {
     GameMainInterface,//游戏主界面（未开始）
     MapGeneration,//地图生成
-    EnemySpawning,//敌人生成
-    UnitPlacement,//单位放置
-    UnitCommanding,//单位指挥
+    PullCards,//抽卡
     UnitActions,//单位行动
     VictorySettlement,//胜利结算
 }

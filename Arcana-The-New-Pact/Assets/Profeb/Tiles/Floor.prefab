@@ -90,7 +90,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 0.85882354, g: 0.8901961, b: 0.89411765, a: 1}
-  renderer: {fileID: 2165711274826073269}
+  arenderer: {fileID: 2165711274826073269}
   highlight: {fileID: 2019034164992417158}
 --- !u!1 &2019034164992417158 stripped
 GameObject:

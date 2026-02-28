@@ -5,19 +5,30 @@ using UnityEngine;
 public  class Tile : MonoBehaviour
 {
     [SerializeField] private Color color;
-    [SerializeField] private new SpriteRenderer renderer;
+    [SerializeField] private SpriteRenderer arenderer;
     [SerializeField] private GameObject highlight;
+    public Warrior currentWarrior;
+
 
     //TODO 
     /// <summary>
     /// 地图差分颜色
     /// </summary>
-    public void Init()
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    public void Init(int x,int y)
     {
-        renderer.color = color;
+            arenderer.color = color;
     }
 
+    public bool AddPlant(Warrior warrior)
+    {
+        if (currentWarrior != null) return false;
 
+        currentWarrior = warrior;
+        currentWarrior.transform.position = transform.position;
+        return true;
+    }
     #region 鼠标高亮显示
     private void OnMouseEnter()
     {

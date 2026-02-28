@@ -31,8 +31,8 @@ public class CameraController2D : MonoBehaviour
     private void Awake()
     {
         gridManager = FindObjectOfType<GridManager>();
-        var width = gridManager.GetWidth();
-        var height = gridManager.GetHeight();
+        var width = gridManager.getWidth();
+        var height = gridManager.getHeight();
         xBounds = new Vector2(0, width);
         yBounds = new Vector2(0, height);
     }
@@ -42,8 +42,8 @@ public class CameraController2D : MonoBehaviour
             targetCamera = Camera.main;
         
         gridManager = FindObjectOfType<GridManager>();
-        var width = gridManager.GetWidth();
-        var height = gridManager.GetHeight();
+        var width = gridManager.getWidth();
+        var height = gridManager.getHeight();
 
         // 确保相机是正交模式
         targetCamera.orthographic = true;
@@ -204,7 +204,7 @@ public class CameraController2D : MonoBehaviour
         }
     }
 
-    // 可选：在游戏中显示当前缩放级别
+    /* 可选：在游戏中显示当前缩放级别
     void OnGUI()
     {
         GUIStyle style = new GUIStyle();
@@ -222,5 +222,5 @@ public class CameraController2D : MonoBehaviour
             $"Position: ({targetPosition.x:F1}, {targetPosition.y:F1})",
             style
         );
-    }
+    }*/
 }
