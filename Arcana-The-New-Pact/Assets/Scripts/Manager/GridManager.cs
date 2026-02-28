@@ -13,7 +13,6 @@ public class GridManager : MonoBehaviour
 
     //管理网格的字典
     private Dictionary<Vector2, Tile> tiles;
-
     /// <summary>
     /// 网格生成
     /// </summary>
@@ -30,13 +29,11 @@ public class GridManager : MonoBehaviour
                 var isWall = randomNumber > 8 || x == 0 || x == width - 1 || y == 0 || y == height - 1;
                 var randomTile = isWall ? wallTile : floorTile;
                 #endregion
-                var spawnedTile = Instantiate(randomTile, new Vector3(x, y), Quaternion.identity,transform);
+                var spawnedTile = Instantiate(randomTile, new Vector3(x, y), Quaternion.identity, transform);
                 spawnedTile.name = $"Tile {x} {y}";
 
-                
-                spawnedTile.Init(x,y);
 
-                tiles[new Vector2(x, y)] = spawnedTile;
+                spawnedTile.Init(x, y);
             }
         }
 
@@ -56,7 +53,6 @@ public class GridManager : MonoBehaviour
         {
             return tile;
         }
-
         return null;
     }
 

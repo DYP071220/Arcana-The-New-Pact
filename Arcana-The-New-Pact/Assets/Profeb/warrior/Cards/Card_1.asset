@@ -12,7 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e1bf1b5aac9d7f46b15f75bb8f2025f, type: 3}
   m_Name: Card_1
   m_EditorClassIdentifier: 
-  ActionPoint: 0
-  Title: tt
-  Description: 
+  ActionPoint: 1
+  Title: "\u8C08\u5224\u4E13\u5BB6"
+  Description: "\u5728\u573A\u65F6 +1\u6700\u5927\u884C\u52A8\u529B"
   Card_Art: {fileID: 0}
+  MaxHP: 100
+  Defence: 0
+  MoveRange: 3
+  AttackRange: 0
+  HandLimit: 3
+  BattlefieldLimit: 3

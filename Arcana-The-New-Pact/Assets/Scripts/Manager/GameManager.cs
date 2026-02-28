@@ -2,16 +2,16 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.XR;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     public GameState GameState;
-    public GameObject StartGameButton;
-    public GameObject QuitGameButton;
     public GridManager gridManager;
     public CardManager cardManager;
+    public GameObject QuitPanel;
 
     private void Awake()
     {
@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
-        ChangeState(GameState.GameMainInterface);
+        ChangeState(GameState.MapGeneration);
     }
 
     public void ChangeState(GameState newState)
@@ -50,12 +50,24 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void StartGame()
+    public void OpenSettings()
     {
-        StartGameButton.SetActive(false);
-        QuitGameButton.SetActive(false);
-        ChangeState(GameState.MapGeneration);
+        QuitPanel.SetActive(true);
+    }
+    public void CancelSettings()
+    {
+        QuitPanel.SetActive(false);
+    }
+    public void QuitGame()
+    {
+        Debug.Log("ÍË³öÓÎÏ·");
 
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else 
+            Application.Quit();
+#endif
+        Debug.Log("");
     }
 }
 public enum GameState

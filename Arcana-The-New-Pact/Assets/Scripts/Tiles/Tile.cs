@@ -7,6 +7,8 @@ public  class Tile : MonoBehaviour
     [SerializeField] private Color color;
     [SerializeField] private SpriteRenderer arenderer;
     [SerializeField] private GameObject highlight;
+    public Warrior currentWarrior;
+
 
     //TODO 
     /// <summary>
@@ -19,7 +21,14 @@ public  class Tile : MonoBehaviour
             arenderer.color = color;
     }
 
+    public bool AddPlant(Warrior warrior)
+    {
+        if (currentWarrior != null) return false;
 
+        currentWarrior = warrior;
+        currentWarrior.transform.position = transform.position;
+        return true;
+    }
     #region  Û±Í∏ﬂ¡¡œ‘ æ
     private void OnMouseEnter()
     {

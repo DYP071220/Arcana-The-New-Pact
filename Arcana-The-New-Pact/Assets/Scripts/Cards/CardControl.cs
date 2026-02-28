@@ -11,6 +11,8 @@ public class CardControl : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     [SerializeField] private Text cardTitleText;
     [SerializeField] private Text actionPointText;
     [SerializeField] private CardMessage cardData;
+    [SerializeField] private CardManager cardManager;
+    [SerializeField] private Warrior warriorPrefab;
 
     private Vector3 originalScale;
     private RectTransform rectTransform;
@@ -26,6 +28,10 @@ public class CardControl : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             originalScale = rectTransform.localScale;
         }
         UpdateCardDisplay();
+        if (cardManager == null)
+        {
+            cardManager = FindObjectOfType<CardManager>();
+        }
     }
 
     private void UpdateCardDisplay()
@@ -46,7 +52,8 @@ public class CardControl : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     {
         if (rectTransform == null || canvasGroup == null) return;
 
-        rectTransform.localScale = originalScale * 1.2f;
+        rectTransform.localScale = originalScale * 1.7f;
+
         canvasGroup.alpha = 1f;
         originalSiblingIndex = rectTransform.GetSiblingIndex();
         rectTransform.SetAsLastSibling(); 
@@ -55,7 +62,6 @@ public class CardControl : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public void OnPointerExit(PointerEventData eventData)
     {
         if (rectTransform == null) return;
-
         rectTransform.localScale = originalScale;
         rectTransform.SetSiblingIndex(originalSiblingIndex);
         if (canvasGroup != null)
@@ -80,11 +86,13 @@ public class CardControl : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     {
         Debug.Log($" π”√ø®≈∆: {cardData?.Title}");
 
-        if (cardImage != null)
+
+        if (cardManager != null)
         {
-            cardImage.color = new Color(0.8f, 0.8f, 0.8f);
+            cardManager.RemoveCard(this.gameObject);
         }
     }
+
 
     private void OnCardRightClicked()
     {
@@ -103,4 +111,6 @@ public class CardControl : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             rectTransform.localScale = originalScale;
         }
     }
+
+
 }

@@ -10,4 +10,12 @@ public class CardMessage : ScriptableObject
     public string Title;
     public string Description;
     public Sprite Card_Art;
+    [SerializeField] private float MaxHP ;
+    [SerializeField] private float Defence ;
+    [SerializeField] private float MoveRange;
+    [SerializeField] private float AttackRange ;
+    [SerializeField] private float HandLimit;
+    [SerializeField] private float BattlefieldLimit;
+
+
 }

@@ -23,20 +23,14 @@ public class CardManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             AddCard();
-            SortCards();
         }
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            RemoveCard(0);
-            SortCards();
-        }
+
     }
     public void AddCardTo(int number)
     {
         for(; nowHandCard  < number;)
         {
             AddCard();
-            SortCards();
         }
     }
     public void AddCard()
@@ -46,9 +40,21 @@ public class CardManager : MonoBehaviour
             GameObject card = Instantiate(NewCard, new Vector3(300, 300, 0), Quaternion.identity, cardCanves);
             handCards[nowHandCard] = card;
             nowHandCard++;
+            SortCards();
         }
     }
-    public void RemoveCard(int index)
+    public void RemoveCard(GameObject cardToRemove)
+    {
+        for (int i = 0; i < nowHandCard; i++)
+        {
+            if (handCards[i] == cardToRemove)
+            {
+                RemoveCardAtIndex(i);
+                break;
+            }
+        }
+    }
+    public void RemoveCardAtIndex(int index)
     {
         if (index < 0 || index >= nowHandCard) return;
 
@@ -69,14 +75,16 @@ public class CardManager : MonoBehaviour
     {
         int number = nowHandCard;
         if (number == 0) return;
-        float space = 600f / (number + 1);
-        float firstCardPosition = 650f - (space * (number - 1) / 2f);
+        //TODO 随手牌数量动态调整相对位置
+        float space = 800f / (number + 1);
+        float firstCardPosition = 500f - (space * (number - 1) / 2f);
 
         for (int i = 0; i < number; i++)
         {
             if (handCards[i] != null)
             {
                 handCards[i].transform.position = new Vector3(firstCardPosition + i * space, 75, 0);
+                handCards[i].GetComponent<RectTransform>().SetSiblingIndex(i);
             }
         }
     }
