@@ -7,27 +7,33 @@ public class GameManager2 : MonoBehaviour
 {
     // Start is called before the first frame update
     public static GameManager2 instance;
-    public GameObject playerprefeb;
-    public GameObject enemyprefeb;
-
-    private Enemy enemy;
-    private Player player;
-
-    public Text dialogText;
-    public UIManager playerHUD;
-    public UIManager enemyHUD;
     public enum BattleState
     {
-        Start,PlayerTurn,EnemyTurn,Win,Lose
+        Start, PlayerTurn, EnemyTurn, Win, Lose
     }
-  public BattleState state;
+    
+    public BattleState state;
+
+    public GameObject playersPrefeb;
+    public GameObject enemyPrefeb;
+
+    private Enemy enemy;
+    private Players players;
+
+    public Text dialogText;
+    public UIManager playersHUD;
+    public UIManager enemyHUD;
+   
+ 
     private void Awake()
     {
         instance = this;
     }
     void Start()
     {
+        dialogText.text = "";
         state = BattleState.Start;
+        StartCoroutine(SetupBattle());
     }
 
     // Update is called once per frame
@@ -37,8 +43,14 @@ public class GameManager2 : MonoBehaviour
     }
     private IEnumerator SetupBattle()
     {
-        enemy=enemyprefeb.GetComponent<Enemy>();
-        player = playerprefeb.GetComponent<Player>();
+        enemy=enemyPrefeb.GetComponent<Enemy>();
+        players = playersPrefeb.GetComponent<Players>();
+
+        dialogText.text =enemy.characterName+"≥ˆœ÷¡À£°";
+
+        playersHUD.InitHUD(players);
+        enemyHUD.InitHUD(enemy);
+        
         yield return new WaitForSeconds(1.5f);
     }
 }
