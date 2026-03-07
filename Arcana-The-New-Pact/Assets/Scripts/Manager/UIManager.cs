@@ -11,6 +11,7 @@ public class UIManager : MonoBehaviour
 
     public Slider hpSlider;
     public Slider mpSlider;
+    public Slider atSlider;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -42,5 +43,8 @@ public class UIManager : MonoBehaviour
     public void mpUpdate(float mp)
     {
         mpSlider.value = mp;
+    }
+    public void atUpdate(float at) { 
+        atSlider.value = at;
     }
 }

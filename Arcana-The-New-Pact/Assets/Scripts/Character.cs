@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 public class Character : MonoBehaviour
@@ -21,18 +22,48 @@ public class Character : MonoBehaviour
     //∑¿”˘¡¶
     public int level;
 
+    public float actionSpeed;
+
+    public float maxAction;
+
+    public float currentAction;
+
     protected virtual void awake()
     {
 
     }
     protected virtual void Start()
     {
-        
+        currentHealth=maxHealth;
+        currentMagic=maxMagic;
     }
-
-    // Update is called once per frame
-    void Update()
+    public virtual float ChangeHealth(float num)
     {
+        currentHealth = Mathf.Clamp(currentHealth + num, 0,maxHealth);
+        if (currentHealth < 0)
+        {
+            //≤•∑≈À¿Õˆ∂Øª≠
+        }
+            return currentHealth; 
+    }
+    public virtual float ChangeMagic(float num)
+    {
+        currentMagic = Mathf.Clamp(currentMagic + num, 0, maxMagic);
+        if (currentHealth <= 0)
+        {
+            //≤•∑≈À¿Õˆ∂Øª≠
+        }
+        return currentMagic;
+    }
+    public bool TakeDamege(float atk,float def)
+    {
+        float dmg = atk - def;
+        ChangeHealth(dmg);
+        if (currentHealth <= 0)
+            return true;
+        else
+            return false;
+
         
     }
 }
